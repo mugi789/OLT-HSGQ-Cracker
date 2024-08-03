@@ -78,6 +78,11 @@ def menu():
             print("IP not found")
     elif pilih == 2:
         urlist = input("Input list file : ")
+        # just for stopping request
+        tambahan = open(urlist, 'a+')
+        tambahan.write('\n127.0.0.1:666')
+        tambahan.seek(0)
+        tambahan.close()
         print("============= START =============")
         while True:
             with open(urlist, "r") as urlll:
