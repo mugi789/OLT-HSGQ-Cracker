@@ -5,17 +5,17 @@
 import requests, hashlib, json, datetime, sys
 from base64 import b64encode
 
-print(r"""
-               |  
-             / _ \
-  OLT HSGQ \_\(_)/_/
-   Cracker  _//"\\_
-             /   \ 
+print("""
+                |
+             \033[34m / _ \ \033[39m
+  \033[31mOLT HSGQ\033[34m \033[34m \_\(_)/_/ \033[39m
+   Cracker  \033[34m _//\033[31m"\033[39m\033[34m\\\_ \033[39m
+             \033[34m /   \ \033[39m
       """)
 
 def menu():
-    print("1. Scan by single IP")
-    print("2. Mass scan with default user")
+    print("1. Scan By Single IP")
+    print("2. Mass Scan With Default User")
     pilih = int(input(">>> "))
     if pilih == 1:
         ip = input("Input IP : ")
@@ -68,7 +68,7 @@ def menu():
                         print("="*35)
                         break
                     else:
-                        print("Trying "+baris+" error ~ "+str(datetime.datetime.now().strftime("%H:%M:%S")))
+                        print("Trying "+baris+" ERROR ~ "+str(datetime.datetime.now().strftime("%H:%M:%S")))
                         pass
                 else:
                     print("============== END ==============")
@@ -124,9 +124,16 @@ def menu():
                     except requests.exceptions.ConnectionError:
                         print(" ~> "+listx+" \033[34m[ ERROR ]\033[39m")
                         if listx == "127.0.0.1:666":
+                            # delete stopper
+                            ganti = open(urlist, 'r').read().replace('\n127.0.0.1:666', '')
+                            baruganti = open(urlist, 'w')
+                            baruganti.write(ganti)
+                            baruganti.close()
                             sys.exit("============== END ==============")
                     except requests.exceptions.ReadTimeout:
                         print(" ~> "+listx+" \033[35m[ IP DOWN ]\033[39m")
+                    except requests.exceptions.InvalidURL:
+                        print(" ~> "+listx+" \033[35m[ URL INVALID ]\033[39m")
                     except KeyboardInterrupt:
                         print(" Bye ~")
                         sys.exit(0)
